@@ -11,16 +11,23 @@ const dateAttribute = '/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/2180';
 
 class App extends Component {
 
-    getMonthFilter() {
+    constructor(props) {
+        super(props);
+        this.state = {
+            year: 2016,
+            month: 1
+        }
+    }
+
+    getFilter() {
         return {
             absoluteDateFilter: {
                 dataSet: {
                     uri: dateAttribute
                 },
-                from: '2016-01-01',
-                to: '2016-01-31'
+                from: `${this.state.year}-${("0" + this.state.month).slice(-2)}-01`,
+                to: `${this.state.year}-${("0" + this.state.month).slice(-2)}-31`
             }
-
         }
     }
 
@@ -54,9 +61,21 @@ class App extends Component {
         }
     }
 
-    renderDropdown() {
+    onMonthChange(event) {
+        this.setState({
+            month: event.target.value
+        });
+    }
+
+    onYearChange(event) {
+        this.setState({
+            year: event.target.value
+        });
+    }
+
+    renderMonthDropdown() {
         return (
-            <select defaultValue="1">
+            <select defaultValue="1" onChange={event => this.onMonthChange(event)}>
                 <option value="1">January</option>
                 <option value="2">February</option>
                 <option value="3">March</option>
@@ -73,15 +92,25 @@ class App extends Component {
         )
     }
 
+    renderYearDropdown() {
+        return (
+            <select defaultValue="2016" onChange={event => this.onYearChange(event)}>
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+                <option value="2017">2017</option>
+            </select>
+        )
+    }
+
     render() {
         const projectId = 'xms7ga4tf3g3nzucd8380o2bev8oeknp';
-        const filters = [this.getMonthFilter()];
+        const filters = [this.getFilter()];
         const measures = this.getMeasures();
         const viewBy = this.getViewBy();
 
         return (
             <div className="App">
-                <h1>$ Gross Profit in month {this.renderDropdown()} 2016</h1>
+                <h1>$ Gross Profit in month {this.renderMonthDropdown()} {this.renderYearDropdown()}</h1>
                 <div>
                     <ColumnChart
                         measures={measures}
