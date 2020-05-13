@@ -9,6 +9,27 @@ const grossProfitMeasure = '/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/6877';
 const dateAttributeInMonths = '/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/2142';
 const dateAttribute = '/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/2180';
 
+const MONTHS = [
+    { id: 1, value: 'January' },
+    { id: 2, value: 'February' },
+    { id: 3, value: 'March' },
+    { id: 4, value: 'April' },
+    { id: 5, value: 'May' },
+    { id: 6, value: 'June' },
+    { id: 7, value: 'July' },
+    { id: 8, value: 'August' },
+    { id: 9, value: 'September' },
+    { id: 10, value: 'October' },
+    { id: 11, value: 'November' },
+    { id: 12, value: 'December' }
+];
+
+const YEARS = [
+    { id: 2015, value: '2015' },
+    { id: 2016, value: '2016' },
+    { id: 2017, value: '2017' },
+];
+
 class App extends Component {
 
     constructor(props) {
@@ -76,18 +97,7 @@ class App extends Component {
     renderMonthDropdown() {
         return (
             <select defaultValue="1" onChange={event => this.onMonthChange(event)}>
-                <option value="1">January</option>
-                <option value="2">February</option>
-                <option value="3">March</option>
-                <option value="4">April</option>
-                <option value="5">May</option>
-                <option value="6">June</option>
-                <option value="7">July</option>
-                <option value="8">August</option>
-                <option value="9">September</option>
-                <option value="10">October</option>
-                <option value="11">November</option>
-                <option value="12">December</option>
+                {MONTHS.map(item => <option key={item.id} value={item.id}>{item.value}</option>)}
             </select>
         )
     }
@@ -95,9 +105,7 @@ class App extends Component {
     renderYearDropdown() {
         return (
             <select defaultValue="2016" onChange={event => this.onYearChange(event)}>
-                <option value="2015">2015</option>
-                <option value="2016">2016</option>
-                <option value="2017">2017</option>
+                {YEARS.map(item => <option key={item.id} value={item.id}>{item.value}</option>)}
             </select>
         )
     }
